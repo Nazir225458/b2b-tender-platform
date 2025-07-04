@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Tender</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h2 {
+      color: #333;
+    }
+    input, textarea {
+      width: 300px;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .tender {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h2>Create Tender</h2>
+
+  <form id="tenderForm">
+    <input type="text" id="title" placeholder="Tender Title" required /><br />
+    <textarea id="description" placeholder="Tender Description" required></textarea><br />
+    <input type="date" id="deadline" required /><br />
+    <input type="number" id="budget" placeholder="Budget (₹)" required /><br />
+    <button type="submit">Save Tender</button>
+  </form>
+
+  <p id="message" style="color: green;"></p>
+
+  <h3>📋 All Tenders</h3>
+  <div id="tenderList"></div>
+
+  <script>
+    const form = document.getElementById("tenderForm");
+    const tenderList = document.getElementById("tenderList");
+    const message = document.getElementById("message");
+
+    // Show existing tender on page load
+    window.onload = () => {
+      const tenders = JSON.parse(localStorage.getItem("tenders")) || [];
+      displayTenders(tenders);
+    };
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value.trim();
+      const description = document.getElementById("description").value.trim();
+      const deadline = document.getElementById("deadline").value;
+      const budget = document.getElementById("budget").value;
+
+      if (!title || !description || !deadline || !budget) {
+        message.style.color = "red";
+        message.textContent = "❌ Please fill all fields.";
+        return;
+      }
+
+      const tender = {
+        title,
+        description,
+        deadline,
+        budget
+      };
+
+      // Save only latest tender (overwrite)
+      localStorage.setItem("tenders", JSON.stringify([tender]));
+
+      message.style.color = "green";
+      message.textContent = "✅ Tender saved successfully!";
+      form.reset();
+      displayTenders([tender]);
+    });
+
+    function displayTenders(tenders) {
+      tenderList.innerHTML = "";
+      tenders.forEach((tender) => {
+        const div = document.createElement("div");
+        div.className = "tender";
+        div.innerHTML = `
+          <strong>${tender.title}</strong><br />
+          <em>${tender.description}</em><br />
+          Deadline: ${tender.deadline}<br />
+          Budget: ₹${tender.budget}
+        `;
+        tenderList.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
+
+

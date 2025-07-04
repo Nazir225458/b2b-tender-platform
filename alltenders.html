@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>All Tenders</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    .tender {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+    .tender strong {
+      font-size: 18px;
+    }
+    .tender em {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📋 All Tenders</h2>
+  <div id="tenderList"></div>
+
+  <script>
+    const tenderList = document.getElementById("tenderList");
+
+    window.onload = () => {
+      const tenders = JSON.parse(localStorage.getItem("tenders")) || [];
+
+      if (tenders.length === 0) {
+        tenderList.innerHTML = "<p>No tenders available.</p>";
+        return;
+      }
+
+      tenders.forEach(tender => {
+        const div = document.createElement("div");
+        div.className = "tender";
+        div.innerHTML = `
+          <strong>${tender.title}</strong><br />
+          <em>${tender.description}</em><br />
+          <p>Deadline: ${tender.deadline}</p>
+          <p>Budget: ₹${tender.budget}</p>
+        `;
+        tenderList.appendChild(div);
+      });
+    };
+  </script>
+
+</body>
+</html>

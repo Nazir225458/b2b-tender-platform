@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Signup (No Backend)</title>
+</head>
+<body>
+  <h2>Signup Page</h2>
+  <form id="signupForm">
+    <input type="text" id="username" placeholder="Username" required />
+    <br /><br />
+    <input type="email" id="email" placeholder="Email" required />
+    <br /><br />
+    <input type="password" id="password" placeholder="Password" required />
+    <br /><br />
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Fake validation
+      if (password.length < 6) {
+        message.textContent = "❌ Password must be at least 6 characters";
+        return;
+      }
+
+      // Simulate user creation (localStorage)
+      const user = { username, email, password };
+      localStorage.setItem('user', JSON.stringify(user));
+      message.textContent = "✅ Signup successful! (Saved locally)";
+    });
+  </script>
+</body>
+</html>
+ 

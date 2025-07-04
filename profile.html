@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Company Profile</title>
+</head>
+<body>
+  <h2>Welcome to Company Profile Page!</h2>
+  <p>Login successful hai. Ab tu yahan se apni company ka profile bhar sakta hai.</p>
+
+  <form id="profileForm">
+    <label>Company Name:</label><br>
+    <input type="text" id="companyName" required /><br><br>
+
+    <label>Industry:</label><br>
+    <input type="text" id="industry" required /><br><br>
+
+    <label>Services:</label><br>
+    <input type="text" id="services" required /><br><br>
+
+    <label>Upload Logo:</label><br>
+    <input type="file" id="logo" accept="image/*" /><br><br>
+
+    <button type="submit">Save Profile</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const form = document.getElementById('profileForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const companyName = document.getElementById('companyName').value.trim();
+      const industry = document.getElementById('industry').value.trim();
+      const services = document.getElementById('services').value.trim();
+      const logoFile = document.getElementById('logo').files[0];
+
+      if (!companyName || !industry || !services) {
+        message.textContent = "❌ Please fill all fields.";
+        return;
+      }
+
+      let reader = new FileReader();
+
+      reader.onload = function () {
+        const profileData = {
+          companyName,
+          industry,
+          services,
+          logo: reader.result
+        };
+
+        localStorage.setItem('profile', JSON.stringify(profileData));
+        message.textContent = "✅ Profile saved successfully!";
+      };
+
+      if (logoFile) {
+        reader.readAsDataURL(logoFile);
+      } else {
+        const profileData = {
+          companyName,
+          industry,
+          services,
+          logo: null
+        };
+        localStorage.setItem('profile', JSON.stringify(profileData));
+        message.textContent = "✅ Profile saved (No logo uploaded).";
+      }
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required />
+    <br /><br />
+    <input type="password" id="password" placeholder="Password" required />
+    <br /><br />
+    <button type="submit">Login</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      const userData = JSON.parse(localStorage.getItem('user'));
+
+      if (!userData) {
+        message.textContent = "❌ Signup pehle karo.";
+        return;
+      }
+
+      if (email === userData.email && password === userData.password) {
+        message.textContent = "✅ Login successful!";
+        setTimeout(() => {
+          window.location.href = "profile.html"; // Next step
+        }, 1000);
+      } else {
+        message.textContent = "❌ Email ya password galat hai.";
+      }
+    });
+  </script>
+</body>
+</html>
