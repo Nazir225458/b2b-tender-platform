@@ -14,7 +14,7 @@ This is a basic frontend-only B2B Tender Management Platform built using:
 - 📋 All Tenders Listing  
 - 💾 Data is saved and fetched from browser **LocalStorage** (no backend used)
 
----
+```
 
 ## 📁 Project Folder Structure
 
@@ -27,7 +27,7 @@ my-website/
 ├── alltenders.html ← Tender listing page
 ├── Readmd.html ← Project description in HTML format 
 
----
+```
 
 ## 🚀 How to Use
 
