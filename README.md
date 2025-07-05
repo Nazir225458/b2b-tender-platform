@@ -9,7 +9,7 @@ This is a basic frontend-only B2B Tender Management Platform built using:
 
 - 📝 Signup Page  
 - 🔐 Login Page  
-- 🏢 Company Profile Page  
+- 🏢 Company Profile Page 
 - 📄 Tender Creation Form  
 - 📋 All Tenders Listing  
 - 💾 Data is saved and fetched from browser **LocalStorage** (no backend used)
@@ -25,7 +25,8 @@ my-website/
 ├── profile.html ← Company profile form page
 ├── tender.html ← Tender creation page
 ├── alltenders.html ← Tender listing page
-├── Readmd.html ← Project description in HTML format
+├── Readmd.html ← Project description in HTML format 
+
 ---
 
 ## 🚀 How to Use
